@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Remeras</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <header>
+        <img src="/images/logo.png" alt="Logo" class="logo">
+        <h1>Normitex Store</h1>
+    </header>
+    <main>
+        <section id="productos">
+            <h2>Productos</h2>
+            <% productos.forEach(producto => { %>
+                <div class="producto">
+                    <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+                    <h3><%= producto.nombre %></h3>
+                    <p><%= producto.descripcion %></p>
+                    <p>Precio: $<%= producto.precio %></p>
+                    <button onclick="agregarAlCarrito('<%= producto.nombre %>', <%= producto.precio %>)">Agregar al Carrito</button>
+                </div>
+            <% }); %>
+        </section>
+        <aside id="carrito">
+            <h2>Carrito</h2>
+            <ul id="lista-carrito"></ul>
+            <button id="confirmar-compra" onclick="confirmarCompra()">Confirmar Compra</button>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tienda Trabajo UNISAL</p>
+    </footer>
+    <script>
+        const carrito = [];
+
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre, precio });
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const listaCarrito = document.getElementById('lista-carrito');
+            listaCarrito.innerHTML = '';
+            carrito.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.nombre} - $${item.precio}`;
+                listaCarrito.appendChild(li);
+            });
+        }
+
+        function confirmarCompra() {
+            alert('¡Gracias por tu compra!');
+            console.log('Productos comprados:', carrito);
+        }
+    </script>
+</body>
+</html>
